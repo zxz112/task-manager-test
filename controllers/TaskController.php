@@ -13,9 +13,10 @@ class TaskController extends Controller
     {
         $template = '/views/tasks/index.phtml';
         $itemsOnPage = 3;
+
         if (!array_key_exists('page', $_GET) || $_GET['page'] == 0) {
             $numPage = 0;
-        } else {    
+        } else {
             $numPage = ($_GET['page'] - 1) * $itemsOnPage;
         }
 
@@ -31,8 +32,7 @@ class TaskController extends Controller
             $orderBy = 'desc';
         }
 
-        $this->pageData['tasks']= $this->model->getPage($numPage, $itemsOnPage, $sortBy, $orderBy);
-
+        $this->pageData['tasks'] = $this->model->getPage($numPage, $itemsOnPage, $sortBy, $orderBy);
         $this->pageData['paging'] = ceil($this->model->count() / $itemsOnPage);
         $this->view->render($template, $this->pageData);
     }
@@ -76,8 +76,8 @@ class TaskController extends Controller
         }
     }
 
-    public function edit()  
-    {   
+    public function edit()
+    {
         $template = '/views/tasks/edit.phtml';
         $this->view->render($template, $this->pageData);
     }
@@ -85,7 +85,6 @@ class TaskController extends Controller
     public function update()
     {
         if (isset($_SESSION['admin'])) {
-            $a = $_POST;
             if (isset($_POST['id'])) {
                 $id = $_POST['id'];
                 $this->model->updateStatus($id);
@@ -93,7 +92,7 @@ class TaskController extends Controller
                 exit;
             }
             $content = $_POST['content'];
-            $id = $_POST['update'];  
+            $id = $_POST['update'];
             $this->model->update($id, $content);
             $res = $_SERVER;
             header("Location: " . $_SERVER['HTTP_REFERER']);

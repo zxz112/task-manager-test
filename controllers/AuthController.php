@@ -11,7 +11,7 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        if(isset($_SESSION['admin'])) {
+        if (isset($_SESSION['admin'])) {
             header("Location: /");
             exit;
         }
@@ -26,9 +26,10 @@ class AuthController extends Controller
         }
 
         if (empty($_POST['password'])) {
+            $_SESSION['data']['login'] = $_POST['login'];
             $_SESSION['errors']['password'] = 'Введите пароль';
         }
-        $e = $_SESSION;
+
         if ($this->model->checkAdmin()) {
             $_SESSION['admin'] = 'admin';
             header("Location: /");
@@ -48,5 +49,4 @@ class AuthController extends Controller
         unset($_SESSION['admin']);
         header("Location: /");
     }
-
 }

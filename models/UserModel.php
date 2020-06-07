@@ -1,5 +1,6 @@
 <?php
 
+
 class UserModel extends Model
 {
     public function checkAdmin()
@@ -22,6 +23,4 @@ class UserModel extends Model
             return false;
         }
     }
-
-
 }
