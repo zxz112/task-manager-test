@@ -1,0 +1,31 @@
+.btn-success {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.btn-success::before {
+    content: '';
+    position: absolute;
+    background-color: white;
+    left:2px;
+    width:15px;
+    height: 3px;
+    transform: rotate(55deg);
+}
+
+
+.btn-success::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    left:9px;
+    width:19px;
+    height: 3px;
+    transform: rotate(-60deg);
+}
+
+.admin-edit {
+    font-size: 10px;
+    color: gray;
+}

@@ -1,0 +1,102 @@
+<?php include ROOT . '/views/layout.phtml' ?>
+
+<?php if(isset($_SESSION['success'])) : ?>
+  <div class="alert alert-success" role="alert">
+    <?=$_SESSION['success']?>
+  </div>
+  <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<form method="GET" action="/" accept-charset="UTF-8">
+<div class="form-row">
+    <div class="col-2">
+    <?php if (array_key_exists('page', $_GET)) : ?>
+    <input type="hidden" name="page" value=<?=$_GET['page']?>>
+    <?php endif; ?>
+        <label for="task_status_id">Сортировать по:</label>
+        <select class="form-control" id="sortBy" name="sortBy">
+      <option value="name" <?php if($_GET['sortBy'] == 'name') echo "selected"; ?>>Имя</option>
+      <option value="email" <?php if($_GET['sortBy'] == 'email') echo "selected"; ?>>Email</option>
+      <option value="status" <?php if($_GET['sortBy'] == 'status') echo "selected"; ?>>Статус</option>
+    </select>
+    </div>
+    <div class="col-2">
+        <label for="creator">Тип сортировки:</label>
+        <select class="form-control" id="exampleFormControlSelect1" name="orderBy">
+      <option value="asc" <?php if($_GET['orderBy'] == 'asc') echo "selected"; ?>>По возрастанию</option>
+      <option value="desc" <?php if($_GET['orderBy'] == 'desc') echo "selected"; ?>>По убыванию</option>
+    </select>
+    </div>
+    <div class="col-auto">
+    <input class="btn btn-outline-primary" style="position: absolute; bottom: 0px" type="submit" value="Сортировать">
+    </div>
+    </div>
+    </form>
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Имя пользователя</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Текст задачи</th>
+                    <th scope="col">Статус</th>
+                    <?php if (isset($_SESSION['admin'])) : ?>
+                      <th scope="col"></th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+            
+            <?php if (array_key_exists('tasks', $pageData)) : ?>
+                <?php foreach($pageData['tasks'] as $data): ?> 
+                  <?php if (isset($_SESSION['admin'])) : ?>
+                    <form action='tasks/update' method="post" id="update<?=$data['id']?>">
+                  <?php endif; ?>
+                    <tr>
+                        <td><?= htmlspecialchars($data['name']) ?? ''?></td>
+                        <td><?= htmlspecialchars($data['email']) ?? ''?></td>
+                        <?php if (isset($_SESSION['admin'])) : ?>
+                        <td><input type="text" value="<?= htmlspecialchars($data['content']) ?? ''?>" name="content"></td>
+                        <?php else: ?>
+                          <td><?= htmlspecialchars($data['content']) ?? ''?></td>
+                        <?php endif; ?>
+                        <td><?php if($data['status'] == 1) {
+                          echo 'Выполнено';
+                        } else {
+                         echo 'Невыполнено'; 
+                        }?>
+                        <?php if($data['updated'] == 1):?> 
+                          <div class="admin-edit">Редактировано администратором</div>
+                        <?php endif; ?></td>
+           
+                        
+                        <td scope="col">
+                        <?php if (isset($_SESSION['admin'])): ?>
+                          <?php if($data['status'] == 0): ?>
+                            <button class="btn btn-success" type="submit" name="id" form="update<?=$data['id']?>" value="<?= $data['id'] ?>"></button>
+                          <?php endif; ?>
+                        <button class="btn btn-danger" type="submit" name="update" form="update<?=$data['id']?>" value="<?= $data['id'] ?>"?> Обновить</button>
+                        <?php endif; ?>
+                        </td>
+                    </tr>
+                  <?php if (isset($_SESSION['admin'])) : ?>
+                    </form>
+                  <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+      <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center flex-wrap">
+          <?php if (array_key_exists('paging', $pageData)) : ?>
+            <?php for ($i = 1; $i <= $pageData['paging']; $i++) :?>
+              <li class="page-item"><a class="page-link" href="/?page=<?=$i?>&sortBy=<?=$_GET['sortBy']?>&orderBy=<?=$_GET['orderBy']?>">
+        <?= $i ?></a></li>
+            <?php endfor; ?>
+          <?php endif; ?>
+    </ul>
+      </nav>
+
+</div>    
+</body>
+
+</html>
