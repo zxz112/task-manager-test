@@ -90,10 +90,10 @@
           <?php if (array_key_exists('paging', $pageData)) : ?>
             <?php for ($i = 1; $i <= $pageData['paging']; $i++) :?>
               <li class="page-item <?php if ($_GET['page'] == $i || (!array_key_exists('page', $_GET) && $i == 1)) echo 'active'?>"><a class="page-link" href="/?page=<?=$i?>&sortBy=<?=$_GET['sortBy']?>&orderBy=<?=$_GET['orderBy']?>">
-        <?= $i ?></a></li>
+              <?= $i ?></a></li>
             <?php endfor; ?>
           <?php endif; ?>
-    </ul>
+      </ul>
       </nav>
 
 </div>    
