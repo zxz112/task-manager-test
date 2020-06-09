@@ -3,7 +3,7 @@
 <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label">Имя пользователя:</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($_SESSION['data']['name']) ?? ''?>">
+<input type="text" class="form-control" id="name" name="name" value="<?php if (isset($_SESSION['data'])): ?>  <?=htmlspecialchars($_SESSION['data']['name']) ??  ''?> <?php endif ?>">
       <?php if (isset($_SESSION['errors']['name'])) : ?>
         <div class="alert alert-danger"><?= $_SESSION['errors']['name'] ?></div>
         <?php unset($_SESSION['errors']['name']); ?>
@@ -13,7 +13,7 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email:</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($_SESSION['data']['email']) ?? ''?>">
+      <input type="email" class="form-control" id="email" name="email" value="<?php if (isset($_SESSION['data'])): ?>  <?=htmlspecialchars($_SESSION['data']['email']) ??  ''?> <?php endif ?>">
       <?php if (isset($_SESSION['errors']['email'])) : ?>
         <div class="alert alert-danger"><?= $_SESSION['errors']['email'] ?></div>
         <?php unset($_SESSION['errors']['email']); ?>
@@ -23,7 +23,7 @@
   <div class="form-group row">
     <label for="content" class="col-sm-2 col-form-label">Текст задачи:</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="content" name="content" value="<?= htmlspecialchars($_SESSION['data']['content']) ?? ''?>">
+      <input type="text" class="form-control" id="content" name="content" value="<?php if (isset($_SESSION['data'])): ?>  <?=htmlspecialchars($_SESSION['data']['content']) ??  ''?> <?php endif ?>">
       <?php if (isset($_SESSION['errors']['content'])) : ?>
         <div class="alert alert-danger"><?= $_SESSION['errors']['content'] ?></div>
         <?php unset($_SESSION['errors']['content']); ?>
@@ -39,3 +39,6 @@
     </div>
   </div>
 </form>
+</body>
+
+</html>

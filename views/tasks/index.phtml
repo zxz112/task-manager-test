@@ -15,16 +15,16 @@
     <?php endif; ?>
         <label for="task_status_id">Сортировать по:</label>
         <select class="form-control" id="sortBy" name="sortBy">
-      <option value="name" <?php if($_GET['sortBy'] == 'name') echo "selected"; ?>>Имя</option>
-      <option value="email" <?php if($_GET['sortBy'] == 'email') echo "selected"; ?>>Email</option>
-      <option value="status" <?php if($_GET['sortBy'] == 'status') echo "selected"; ?>>Статус</option>
+      <option value="name" <?php if(isset($_GET['sortBy']) && $_GET['sortBy'] == 'name') echo "selected"; ?>>Имя</option>
+      <option value="email" <?php if(isset($_GET['sortBy']) && $_GET['sortBy'] == 'email') echo "selected"; ?>>Email</option>
+      <option value="status" <?php if(isset($_GET['sortBy']) &&  $_GET['sortBy'] == 'status') echo "selected"; ?>>Статус</option>
     </select>
     </div>
     <div class="col-2">
         <label for="creator">Тип сортировки:</label>
         <select class="form-control" id="exampleFormControlSelect1" name="orderBy">
-      <option value="asc" <?php if($_GET['orderBy'] == 'asc') echo "selected"; ?>>По возрастанию</option>
-      <option value="desc" <?php if($_GET['orderBy'] == 'desc') echo "selected"; ?>>По убыванию</option>
+      <option value="asc" <?php if(isset($_GET['orderBy']) && $_GET['orderBy'] == 'asc') echo "selected"; ?>>По возрастанию</option>
+      <option value="desc" <?php if(isset($_GET['orderBy']) && $_GET['orderBy'] == 'desc') echo "selected"; ?>>По убыванию</option>
     </select>
     </div>
     <div class="col-auto">
@@ -89,13 +89,12 @@
       <ul class="pagination justify-content-center flex-wrap">
           <?php if (array_key_exists('paging', $pageData)) : ?>
             <?php for ($i = 1; $i <= $pageData['paging']; $i++) :?>
-              <li class="page-item <?php if ($_GET['page'] == $i || (!array_key_exists('page', $_GET) && $i == 1)) echo 'active'?>"><a class="page-link" href="/?page=<?=$i?>&sortBy=<?=$_GET['sortBy']?>&orderBy=<?=$_GET['orderBy']?>">
+              <li class="page-item <?php if (!isset($_GET['page']) && $i == 1 || ($_GET['page'] == $i)) echo 'active'?>"><a class="page-link" href="/?page=<?=$i?>&sortBy=<?=$_GET['sortBy']?>&orderBy=<?=$_GET['orderBy']?>">
               <?= $i ?></a></li>
             <?php endfor; ?>
           <?php endif; ?>
       </ul>
       </nav>
-
 </div>    
 </body>
 
