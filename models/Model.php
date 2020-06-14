@@ -1,5 +1,9 @@
 <?php
 
+namespace Models;
+
+use Conf\DB;
+
 class Model
 {
     protected $db = null;

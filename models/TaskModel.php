@@ -1,5 +1,7 @@
 <?php
 
+namespace Models;
+
 class TaskModel extends Model
 {
     public function getPage($numPage, $itemsOnPage, $sortBy, $orderBy)
@@ -7,7 +9,7 @@ class TaskModel extends Model
 
         $sql = "SELECT * FROM tasks ORDER BY $sortBy $orderBy LIMIT $numPage, $itemsOnPage";
         $stmt = $this->db->query($sql);
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $res;
     }
 
@@ -21,7 +23,7 @@ class TaskModel extends Model
 
     public function insert($data)
     {
-        $currentData = implode(',' , array_map(function($value) {
+        $currentData = implode(',', array_map(function ($value) {
             return $this->db->quote($value);
         }, $data));
         $sql = "INSERT INTO tasks (name, email, content, status) VALUES ($currentData , false)";

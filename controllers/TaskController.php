@@ -1,5 +1,10 @@
 <?php
 
+namespace Controllers;
+
+use Models\TaskModel;
+use Views\View;
+
 class TaskController extends Controller
 {
 

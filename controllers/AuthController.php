@@ -1,5 +1,10 @@
 <?php
 
+namespace Controllers;
+
+use Models\UserModel;
+use Views\View;
+
 class AuthController extends Controller
 {
 

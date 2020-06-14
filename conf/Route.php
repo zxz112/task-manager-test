@@ -1,5 +1,7 @@
 <?php
 
+namespace Conf;
+
 class Route
 {
     public static function buildRoute()
@@ -48,9 +50,9 @@ class Route
             header("Location: /");
             exit;
         }
-        include CONTROLLER_PATH . $controllerName . ".php";
-        include MODEL_PATH . $modelName . ".php";
-        $controller = new $controllerName;
+        
+        $controllerName = "Controllers\\{$controllerName}";
+        $controller = new $controllerName();
         $controller->$action();
     }
 }

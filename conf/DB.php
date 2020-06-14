@@ -1,5 +1,7 @@
 <?php
 
+namespace Conf;
+
 class DB
 {
     private $db;
@@ -14,6 +16,6 @@ class DB
         $user = self::USER;
         $host = self::HOST;
         $pass = self::PASS;
-        return new PDO("mysql:dbname=$db;host=$host", $user, $pass);
+        return new \PDO("mysql:dbname=$db;host=$host", $user, $pass);
     }
 }

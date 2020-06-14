@@ -1,5 +1,7 @@
 <?php
 
+namespace Controllers;
+
 class Controller
 {
     public $model;
@@ -8,7 +10,7 @@ class Controller
 
     public function __construct()
     {
-        $this->view = new View();
         $this->model = new Model();
+        $this->view  = new View();
     }
 }
