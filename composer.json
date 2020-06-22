@@ -3,18 +3,14 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Controllers\\": "controllers",
-            "Models\\": "models",
-            "Views\\": "views",
+            "App\\Controllers\\": "app/controllers",
+            "App\\Models\\": "app/models",
             "Conf\\" : "conf"
         },
         "files": [
             "conf/config.php"
-        ],
-        "classmap": [
-            "controllers/TaskController.php"
         ]
-    },
+        },
     "scripts": {
         "phpcs":"phpcs"
     },

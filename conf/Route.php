@@ -51,7 +51,7 @@ class Route
             exit;
         }
         
-        $controllerName = "Controllers\\{$controllerName}";
+        $controllerName = "App\\Controllers\\{$controllerName}";
         $controller = new $controllerName();
         $controller->$action();
     }

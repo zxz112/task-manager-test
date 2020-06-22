@@ -1,5 +1,3 @@
-<?php include ROOT . '/views/layout.phtml' ?>
-
 <?php if(isset($_SESSION['success'])) : ?>
   <div class="alert alert-success" role="alert">
     <?=$_SESSION['success']?>
@@ -65,7 +63,7 @@
                          echo 'Невыполнено'; 
                         }?>
                         <?php if($data['updated'] == 1):?> 
-                          <div class="admin-edit">Редактировано администратором</div>
+                          <div class="admin-edit">Отредактировано администратором</div>
                         <?php endif; ?></td>
            
                         

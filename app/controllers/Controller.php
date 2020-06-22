@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
 class Controller
 {
@@ -13,7 +13,7 @@ class Controller
 
     public function render($template, $pageData)
     {
-
+        include ROOT . '/views/layout.phtml';
         include ROOT . $template;
     }
 }

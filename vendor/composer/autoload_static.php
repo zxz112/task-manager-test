@@ -11,42 +11,30 @@ class ComposerStaticInitb2d99eb3c82d43faff91c2c1f3469fa1
     );
 
     public static $prefixLengthsPsr4 = array (
-        'V' => 
-        array (
-            'Views\\' => 6,
-        ),
-        'M' => 
-        array (
-            'Models\\' => 7,
-        ),
         'C' => 
         array (
-            'Controllers\\' => 12,
             'Conf\\' => 5,
+        ),
+        'A' => 
+        array (
+            'App\\Models\\' => 11,
+            'App\\Controllers\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Views\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/views',
-        ),
-        'Models\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/models',
-        ),
-        'Controllers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/controllers',
-        ),
         'Conf\\' => 
         array (
             0 => __DIR__ . '/../..' . '/conf',
         ),
-    );
-
-    public static $classMap = array (
-        'Controllers\\TaskController' => __DIR__ . '/../..' . '/controllers/TaskController.php',
+        'App\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/models',
+        ),
+        'App\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -54,7 +42,6 @@ class ComposerStaticInitb2d99eb3c82d43faff91c2c1f3469fa1
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb2d99eb3c82d43faff91c2c1f3469fa1::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb2d99eb3c82d43faff91c2c1f3469fa1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb2d99eb3c82d43faff91c2c1f3469fa1::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\TaskModel;
+use App\Models\TaskModel;
 use Views\View;
 
 class TaskController extends Controller
