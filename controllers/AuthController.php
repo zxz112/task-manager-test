@@ -3,15 +3,13 @@
 namespace Controllers;
 
 use Models\UserModel;
-use Views\View;
 
 class AuthController extends Controller
 {
 
     public function __construct()
     {
-        $this->model = new UserModel();
-        $this->view  = new View();
+        //
     }
 
     public function getLogin()
@@ -21,21 +19,26 @@ class AuthController extends Controller
             exit;
         }
         $template = '/views/login.phtml';
-        $this->view->render($template, $this->pageData);
+        $this->render($template, $this->pageData);
     }
 
     public function postLogin()
     {
-        if (empty($_POST['login'])) {
+        $user = new UserModel();
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+
+
+        if (empty($login)) {
             $_SESSION['errors']['login'] = "Введите имя";
         }
 
-        if (empty($_POST['password'])) {
+        if (empty($password)) {
             $_SESSION['data']['login'] = $_POST['login'];
             $_SESSION['errors']['password'] = 'Введите пароль';
         }
 
-        if ($this->model->checkAdmin()) {
+        if ($user->checkAdmin($login, $password)) {
             $_SESSION['admin'] = 'admin';
             header("Location: /");
             exit;

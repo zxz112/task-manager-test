@@ -6,9 +6,12 @@ class TaskModel extends Model
 {
     public function getPage($numPage, $itemsOnPage, $sortBy, $orderBy)
     {
-
-        $sql = "SELECT * FROM tasks ORDER BY $sortBy $orderBy LIMIT $numPage, $itemsOnPage";
-        $stmt = $this->db->query($sql);
+        $orderBy = $orderBy == 'desc' ? 'desc' : 'asc';
+        $sql = "SELECT * FROM tasks ORDER BY $sortBy $orderBy LIMIT :numPage, :itemsOnPage";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":numPage", $numPage, \PDO::PARAM_INT);
+        $stmt->bindValue(":itemsOnPage", $itemsOnPage, \PDO::PARAM_INT);
+        $stmt->execute();
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $res;
     }
@@ -38,7 +41,10 @@ class TaskModel extends Model
 
     public function update($id, $content)
     {
-        $sql = "UPDATE tasks SET content = '$content', updated = 1 WHERE id = '$id'";
-        $stmt = $this->db->exec($sql);
+        $sql = "UPDATE tasks SET content = :content, updated = 1 WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":content", $content, \PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
+        $stmt->execute();
     }
 }

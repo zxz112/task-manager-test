@@ -4,12 +4,8 @@ namespace Models;
 
 class UserModel extends Model
 {
-    public function checkAdmin()
+    public function checkAdmin($login, $password)
     {
-        $login = $_POST['login'];
-        $password = $_POST['password'];
-
-
         $sql = "SELECT * FROM users WHERE login = :login AND password = :password AND admin=true";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":login", $login, \PDO::PARAM_STR);

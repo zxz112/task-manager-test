@@ -4,13 +4,16 @@ namespace Controllers;
 
 class Controller
 {
-    public $model;
-    public $view;
-    public $pageData = [];
+    private $pageData;
 
     public function __construct()
     {
-        $this->model = new Model();
-        $this->view  = new View();
+        $this->pageData = [];
+    }
+
+    public function render($template, $pageData)
+    {
+
+        include ROOT . $template;
     }
 }

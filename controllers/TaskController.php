@@ -10,14 +10,13 @@ class TaskController extends Controller
 
     public function __construct()
     {
-        $this->model = new TaskModel();
-        $this->view  = new View();
+        //
     }
 
     public function index()
     {
         $template = '/views/tasks/index.phtml';
-        $itemsOnPage = 3;
+        $itemsOnPage = 10;
 
         if (!array_key_exists('page', $_GET) || $_GET['page'] == 0) {
             $numPage = 0;
@@ -36,20 +35,21 @@ class TaskController extends Controller
         } else {
             $orderBy = 'desc';
         }
-
-        $this->pageData['tasks'] = $this->model->getPage($numPage, $itemsOnPage, $sortBy, $orderBy);
-        $this->pageData['paging'] = ceil($this->model->count() / $itemsOnPage);
-        $this->view->render($template, $this->pageData);
+        $task = new TaskModel();
+        $this->pageData['tasks'] = $task->getPage($numPage, $itemsOnPage, $sortBy, $orderBy);
+        $this->pageData['paging'] = ceil($task->count() / $itemsOnPage);
+        $this->render($template, $this->pageData);
     }
 
     public function create()
     {
         $template = '/views/tasks/create.phtml';
-        $this->view->render($template, $this->pageData);
+        $this->render($template, $this->pageData);
     }
 
     public function store()
     {
+        $task = new TaskModel();
         $template = '/views/tasks/create.phtml';
         $this->pageData['name'] = $_POST['name'];
         if (empty($this->pageData['name'])) {
@@ -74,7 +74,7 @@ class TaskController extends Controller
             $_SESSION['data'] = $this->pageData;
             header("Location: /tasks/create");
         } else {
-            $this->model->insert($this->pageData);
+            $task->insert($this->pageData);
             $_SESSION['success'] = 'Задача успешно добавлена!';
             header("Location: /");
             exit;
@@ -84,21 +84,22 @@ class TaskController extends Controller
     public function edit()
     {
         $template = '/views/tasks/edit.phtml';
-        $this->view->render($template, $this->pageData);
+        $this->render($template, $this->pageData);
     }
 
     public function update()
     {
+        $task = new TaskModel();
         if (isset($_SESSION['admin'])) {
             if (isset($_POST['id'])) {
                 $id = $_POST['id'];
-                $this->model->updateStatus($id);
+                $task->updateStatus($id);
                 header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit;
             }
             $content = $_POST['content'];
             $id = $_POST['update'];
-            $this->model->update($id, $content);
+            $task->update($id, $content);
             $res = $_SERVER;
             header("Location: " . $_SERVER['HTTP_REFERER']);
             exit;
